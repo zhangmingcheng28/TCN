@@ -1,0 +1,372 @@
+[[05/09/2022 02:25:50 PM]] SEED: 42
+[[05/09/2022 02:25:50 PM]] # of paramters: 14,041
+[[05/09/2022 02:25:50 PM]] # of trainable paramters: 14,041
+[[05/09/2022 02:25:50 PM]] Optimizer Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    eps: 1e-08
+    initial_lr: 0.001
+    lr: 0.000125
+    weight_decay: 0
+)
+[[05/09/2022 02:25:50 PM]] Batches per epoch: 33
+[[05/09/2022 02:25:50 PM]] ====================Epoch 1====================
+[[05/09/2022 02:25:51 PM]] Step 16: train 5.441182 lr: 3.239e-04
+[[05/09/2022 02:25:51 PM]] Step 32: train 3.211980 lr: 5.360e-04
+[[05/09/2022 02:25:51 PM]] Snapshot loss 0.54028568
+[[05/09/2022 02:25:51 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.54028568.pth...
+[[05/09/2022 02:25:51 PM]] New low
+
+[[05/09/2022 02:25:51 PM]] ====================Epoch 2====================
+[[05/09/2022 02:25:51 PM]] Step 48: train 0.783411 lr: 7.481e-04
+[[05/09/2022 02:25:51 PM]] Step 64: train 0.480367 lr: 9.602e-04
+[[05/09/2022 02:25:51 PM]] Snapshot loss 0.38970684
+[[05/09/2022 02:25:51 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.38970684.pth...
+[[05/09/2022 02:25:51 PM]] New low
+
+[[05/09/2022 02:25:51 PM]] ====================Epoch 3====================
+[[05/09/2022 02:25:51 PM]] Step 80: train 0.424692 lr: 9.809e-04
+[[05/09/2022 02:25:51 PM]] Step 96: train 0.409959 lr: 9.573e-04
+[[05/09/2022 02:25:51 PM]] Snapshot loss 0.39764189
+[[05/09/2022 02:25:51 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.39764189.pth...
+[[05/09/2022 02:25:51 PM]] ====================Epoch 4====================
+[[05/09/2022 02:25:51 PM]] Step 112: train 0.321188 lr: 9.337e-04
+[[05/09/2022 02:25:51 PM]] Step 128: train 0.298850 lr: 9.101e-04
+[[05/09/2022 02:25:51 PM]] Snapshot loss 0.27342333
+[[05/09/2022 02:25:51 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.27342333.pth...
+[[05/09/2022 02:25:51 PM]] New low
+
+[[05/09/2022 02:25:51 PM]] ====================Epoch 5====================
+[[05/09/2022 02:25:51 PM]] Step 144: train 0.314114 lr: 8.866e-04
+[[05/09/2022 02:25:52 PM]] Step 160: train 0.270252 lr: 8.630e-04
+[[05/09/2022 02:25:52 PM]] Snapshot loss 0.25508346
+[[05/09/2022 02:25:52 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.25508346.pth...
+[[05/09/2022 02:25:52 PM]] New low
+
+[[05/09/2022 02:25:52 PM]] ====================Epoch 6====================
+[[05/09/2022 02:25:52 PM]] Step 176: train 0.242033 lr: 8.394e-04
+[[05/09/2022 02:25:52 PM]] Step 192: train 0.234633 lr: 8.159e-04
+[[05/09/2022 02:25:52 PM]] Snapshot loss 0.26243147
+[[05/09/2022 02:25:52 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.26243147.pth...
+[[05/09/2022 02:25:52 PM]] ====================Epoch 7====================
+[[05/09/2022 02:25:52 PM]] Step 208: train 0.228269 lr: 7.923e-04
+[[05/09/2022 02:25:52 PM]] Step 224: train 0.207917 lr: 7.687e-04
+[[05/09/2022 02:25:52 PM]] Snapshot loss 0.22135090
+[[05/09/2022 02:25:52 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.22135090.pth...
+[[05/09/2022 02:25:52 PM]] New low
+
+[[05/09/2022 02:25:52 PM]] ====================Epoch 8====================
+[[05/09/2022 02:25:52 PM]] Step 240: train 0.179097 lr: 7.452e-04
+[[05/09/2022 02:25:52 PM]] Step 256: train 0.175276 lr: 7.216e-04
+[[05/09/2022 02:25:52 PM]] Snapshot loss 0.22459087
+[[05/09/2022 02:25:52 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.22459087.pth...
+[[05/09/2022 02:25:52 PM]] ====================Epoch 9====================
+[[05/09/2022 02:25:52 PM]] Step 272: train 0.161890 lr: 6.980e-04
+[[05/09/2022 02:25:52 PM]] Step 288: train 0.155450 lr: 6.745e-04
+[[05/09/2022 02:25:53 PM]] Snapshot loss 0.27173402
+[[05/09/2022 02:25:53 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.27173402.pth...
+[[05/09/2022 02:25:53 PM]] ====================Epoch 10====================
+[[05/09/2022 02:25:53 PM]] Step 304: train 0.156822 lr: 6.509e-04
+[[05/09/2022 02:25:53 PM]] Step 320: train 0.146382 lr: 6.273e-04
+[[05/09/2022 02:25:53 PM]] Snapshot loss 0.24850940
+[[05/09/2022 02:25:53 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.24850940.pth...
+[[05/09/2022 02:25:53 PM]] ====================Epoch 11====================
+[[05/09/2022 02:25:53 PM]] Step 336: train 0.154169 lr: 6.037e-04
+[[05/09/2022 02:25:53 PM]] Step 352: train 0.147296 lr: 5.802e-04
+[[05/09/2022 02:25:53 PM]] Snapshot loss 0.22636751
+[[05/09/2022 02:25:53 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.22636751.pth...
+[[05/09/2022 02:25:53 PM]] ====================Epoch 12====================
+[[05/09/2022 02:25:53 PM]] Step 368: train 0.149771 lr: 5.566e-04
+[[05/09/2022 02:25:53 PM]] Step 384: train 0.166200 lr: 5.330e-04
+[[05/09/2022 02:25:53 PM]] Snapshot loss 0.29372283
+[[05/09/2022 02:25:53 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.29372283.pth...
+[[05/09/2022 02:25:53 PM]] ====================Epoch 13====================
+[[05/09/2022 02:25:53 PM]] Step 400: train 0.161074 lr: 5.095e-04
+[[05/09/2022 02:25:53 PM]] Step 416: train 0.158864 lr: 4.859e-04
+[[05/09/2022 02:25:53 PM]] Snapshot loss 0.31002803
+[[05/09/2022 02:25:53 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.31002803.pth...
+[[05/09/2022 02:25:53 PM]] ====================Epoch 14====================
+[[05/09/2022 02:25:53 PM]] Step 432: train 0.154328 lr: 4.623e-04
+[[05/09/2022 02:25:54 PM]] Step 448: train 0.127707 lr: 4.388e-04
+[[05/09/2022 02:25:54 PM]] Snapshot loss 0.34340457
+[[05/09/2022 02:25:54 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.34340457.pth...
+[[05/09/2022 02:25:54 PM]] ====================Epoch 15====================
+[[05/09/2022 02:25:54 PM]] Step 464: train 0.128064 lr: 4.152e-04
+[[05/09/2022 02:25:54 PM]] Step 480: train 0.133413 lr: 3.916e-04
+[[05/09/2022 02:25:54 PM]] Snapshot loss 0.25992395
+[[05/09/2022 02:25:54 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.25992395.pth...
+[[05/09/2022 02:25:54 PM]] ====================Epoch 16====================
+[[05/09/2022 02:25:54 PM]] Step 496: train 0.133318 lr: 3.681e-04
+[[05/09/2022 02:25:54 PM]] Step 512: train 0.126555 lr: 3.445e-04
+[[05/09/2022 02:25:54 PM]] Step 528: train 0.119054 lr: 3.209e-04
+[[05/09/2022 02:25:54 PM]] Snapshot loss 0.24609345
+[[05/09/2022 02:25:54 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.24609345.pth...
+[[05/09/2022 02:25:54 PM]] ====================Epoch 17====================
+[[05/09/2022 02:25:54 PM]] Step 544: train 0.130008 lr: 2.973e-04
+[[05/09/2022 02:25:54 PM]] Step 560: train 0.121237 lr: 2.738e-04
+[[05/09/2022 02:25:54 PM]] Snapshot loss 0.24219638
+[[05/09/2022 02:25:54 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.24219638.pth...
+[[05/09/2022 02:25:54 PM]] ====================Epoch 18====================
+[[05/09/2022 02:25:54 PM]] Step 576: train 0.110616 lr: 2.502e-04
+[[05/09/2022 02:25:55 PM]] Step 592: train 0.103394 lr: 2.266e-04
+[[05/09/2022 02:25:55 PM]] Snapshot loss 0.27001219
+[[05/09/2022 02:25:55 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.27001219.pth...
+[[05/09/2022 02:25:55 PM]] Predicting test...
+[[05/09/2022 02:25:55 PM]] Loading cache\model_cache\snapshot_Turkey_0.54028568.pth
+[[05/09/2022 02:25:55 PM]] Loading cache\model_cache\snapshot_Turkey_0.38970684.pth
+[[05/09/2022 02:25:55 PM]] Loading cache\model_cache\snapshot_Turkey_0.39764189.pth
+[[05/09/2022 02:25:55 PM]] SEED: 42
+[[05/09/2022 02:25:55 PM]] # of paramters: 14,041
+[[05/09/2022 02:25:55 PM]] # of trainable paramters: 14,041
+[[05/09/2022 02:25:55 PM]] Optimizer Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    eps: 1e-08
+    initial_lr: 0.001
+    lr: 0.000125
+    weight_decay: 0
+)
+[[05/09/2022 02:25:55 PM]] Batches per epoch: 33
+[[05/09/2022 02:25:55 PM]] ====================Epoch 1====================
+[[05/09/2022 02:25:55 PM]] Step 16: train 4.893517 lr: 3.239e-04
+[[05/09/2022 02:25:55 PM]] Step 32: train 3.033129 lr: 5.360e-04
+[[05/09/2022 02:25:55 PM]] Snapshot loss 0.54221723
+[[05/09/2022 02:25:55 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.54221723.pth...
+[[05/09/2022 02:25:55 PM]] New low
+
+[[05/09/2022 02:25:55 PM]] ====================Epoch 2====================
+[[05/09/2022 02:25:55 PM]] Step 48: train 0.885759 lr: 7.481e-04
+[[05/09/2022 02:25:55 PM]] Step 64: train 0.508167 lr: 9.602e-04
+[[05/09/2022 02:25:55 PM]] Snapshot loss 0.33119106
+[[05/09/2022 02:25:55 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.33119106.pth...
+[[05/09/2022 02:25:55 PM]] New low
+
+[[05/09/2022 02:25:55 PM]] ====================Epoch 3====================
+[[05/09/2022 02:25:55 PM]] Step 80: train 0.472158 lr: 9.809e-04
+[[05/09/2022 02:25:55 PM]] Step 96: train 0.370497 lr: 9.573e-04
+[[05/09/2022 02:25:55 PM]] Snapshot loss 0.25119427
+[[05/09/2022 02:25:55 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.25119427.pth...
+[[05/09/2022 02:25:55 PM]] New low
+
+[[05/09/2022 02:25:55 PM]] ====================Epoch 4====================
+[[05/09/2022 02:25:55 PM]] Step 112: train 0.279443 lr: 9.337e-04
+[[05/09/2022 02:25:56 PM]] Step 128: train 0.246526 lr: 9.101e-04
+[[05/09/2022 02:25:56 PM]] Snapshot loss 0.20075784
+[[05/09/2022 02:25:56 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.20075784.pth...
+[[05/09/2022 02:25:56 PM]] New low
+
+[[05/09/2022 02:25:56 PM]] ====================Epoch 5====================
+[[05/09/2022 02:25:56 PM]] Step 144: train 0.242055 lr: 8.866e-04
+[[05/09/2022 02:25:56 PM]] Step 160: train 0.249272 lr: 8.630e-04
+[[05/09/2022 02:25:56 PM]] Snapshot loss 0.22028748
+[[05/09/2022 02:25:56 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.22028748.pth...
+[[05/09/2022 02:25:56 PM]] ====================Epoch 6====================
+[[05/09/2022 02:25:56 PM]] Step 176: train 0.224799 lr: 8.394e-04
+[[05/09/2022 02:25:56 PM]] Step 192: train 0.204927 lr: 8.159e-04
+[[05/09/2022 02:25:56 PM]] Snapshot loss 0.20306527
+[[05/09/2022 02:25:56 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.20306527.pth...
+[[05/09/2022 02:25:56 PM]] ====================Epoch 7====================
+[[05/09/2022 02:25:56 PM]] Step 208: train 0.207048 lr: 7.923e-04
+[[05/09/2022 02:25:56 PM]] Step 224: train 0.206619 lr: 7.687e-04
+[[05/09/2022 02:25:56 PM]] Snapshot loss 0.17205089
+[[05/09/2022 02:25:56 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.17205089.pth...
+[[05/09/2022 02:25:56 PM]] New low
+
+[[05/09/2022 02:25:56 PM]] ====================Epoch 8====================
+[[05/09/2022 02:25:56 PM]] Step 240: train 0.215581 lr: 7.452e-04
+[[05/09/2022 02:25:56 PM]] Step 256: train 0.209625 lr: 7.216e-04
+[[05/09/2022 02:25:57 PM]] Snapshot loss 0.18396531
+[[05/09/2022 02:25:57 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.18396531.pth...
+[[05/09/2022 02:25:57 PM]] ====================Epoch 9====================
+[[05/09/2022 02:25:57 PM]] Step 272: train 0.173396 lr: 6.980e-04
+[[05/09/2022 02:25:57 PM]] Step 288: train 0.162685 lr: 6.745e-04
+[[05/09/2022 02:25:57 PM]] Snapshot loss 0.16172508
+[[05/09/2022 02:25:57 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.16172508.pth...
+[[05/09/2022 02:25:57 PM]] New low
+
+[[05/09/2022 02:25:57 PM]] ====================Epoch 10====================
+[[05/09/2022 02:25:57 PM]] Step 304: train 0.153377 lr: 6.509e-04
+[[05/09/2022 02:25:57 PM]] Step 320: train 0.145933 lr: 6.273e-04
+[[05/09/2022 02:25:57 PM]] Snapshot loss 0.16027279
+[[05/09/2022 02:25:57 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.16027279.pth...
+[[05/09/2022 02:25:57 PM]] New low
+
+[[05/09/2022 02:25:57 PM]] ====================Epoch 11====================
+[[05/09/2022 02:25:57 PM]] Step 336: train 0.153126 lr: 6.037e-04
+[[05/09/2022 02:25:57 PM]] Step 352: train 0.140777 lr: 5.802e-04
+[[05/09/2022 02:25:57 PM]] Snapshot loss 0.21286673
+[[05/09/2022 02:25:57 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.21286673.pth...
+[[05/09/2022 02:25:57 PM]] ====================Epoch 12====================
+[[05/09/2022 02:25:57 PM]] Step 368: train 0.159095 lr: 5.566e-04
+[[05/09/2022 02:25:57 PM]] Step 384: train 0.159725 lr: 5.330e-04
+[[05/09/2022 02:25:57 PM]] Snapshot loss 0.26352269
+[[05/09/2022 02:25:57 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.26352269.pth...
+[[05/09/2022 02:25:57 PM]] ====================Epoch 13====================
+[[05/09/2022 02:25:57 PM]] Step 400: train 0.155812 lr: 5.095e-04
+[[05/09/2022 02:25:58 PM]] Step 416: train 0.146823 lr: 4.859e-04
+[[05/09/2022 02:25:58 PM]] Snapshot loss 0.16413086
+[[05/09/2022 02:25:58 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.16413086.pth...
+[[05/09/2022 02:25:58 PM]] ====================Epoch 14====================
+[[05/09/2022 02:25:58 PM]] Step 432: train 0.131727 lr: 4.623e-04
+[[05/09/2022 02:25:58 PM]] Step 448: train 0.149754 lr: 4.388e-04
+[[05/09/2022 02:25:58 PM]] Snapshot loss 0.19641584
+[[05/09/2022 02:25:58 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.19641584.pth...
+[[05/09/2022 02:25:58 PM]] ====================Epoch 15====================
+[[05/09/2022 02:25:58 PM]] Step 464: train 0.132657 lr: 4.152e-04
+[[05/09/2022 02:25:58 PM]] Step 480: train 0.120271 lr: 3.916e-04
+[[05/09/2022 02:25:58 PM]] Snapshot loss 0.16880471
+[[05/09/2022 02:25:58 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.16880471.pth...
+[[05/09/2022 02:25:58 PM]] ====================Epoch 16====================
+[[05/09/2022 02:25:58 PM]] Step 496: train 0.113830 lr: 3.681e-04
+[[05/09/2022 02:25:58 PM]] Step 512: train 0.117208 lr: 3.445e-04
+[[05/09/2022 02:25:58 PM]] Step 528: train 0.117512 lr: 3.209e-04
+[[05/09/2022 02:25:58 PM]] Snapshot loss 0.17012541
+[[05/09/2022 02:25:58 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.17012541.pth...
+[[05/09/2022 02:25:58 PM]] ====================Epoch 17====================
+[[05/09/2022 02:25:58 PM]] Step 544: train 0.118387 lr: 2.973e-04
+[[05/09/2022 02:25:59 PM]] Step 560: train 0.120452 lr: 2.738e-04
+[[05/09/2022 02:25:59 PM]] Snapshot loss 0.17425687
+[[05/09/2022 02:25:59 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.17425687.pth...
+[[05/09/2022 02:25:59 PM]] ====================Epoch 18====================
+[[05/09/2022 02:25:59 PM]] Step 576: train 0.103675 lr: 2.502e-04
+[[05/09/2022 02:25:59 PM]] Step 592: train 0.105453 lr: 2.266e-04
+[[05/09/2022 02:25:59 PM]] Snapshot loss 0.17141156
+[[05/09/2022 02:25:59 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.17141156.pth...
+[[05/09/2022 02:25:59 PM]] ====================Epoch 19====================
+[[05/09/2022 02:25:59 PM]] Step 608: train 0.122254 lr: 2.031e-04
+[[05/09/2022 02:25:59 PM]] Step 624: train 0.103781 lr: 1.795e-04
+[[05/09/2022 02:25:59 PM]] Snapshot loss 0.17076388
+[[05/09/2022 02:25:59 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.17076388.pth...
+[[05/09/2022 02:25:59 PM]] ====================Epoch 20====================
+[[05/09/2022 02:25:59 PM]] Step 640: train 0.102564 lr: 1.559e-04
+[[05/09/2022 02:25:59 PM]] Step 656: train 0.106566 lr: 1.324e-04
+[[05/09/2022 02:25:59 PM]] Snapshot loss 0.17109285
+[[05/09/2022 02:25:59 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.17109285.pth...
+[[05/09/2022 02:25:59 PM]] Predicting test...
+[[05/09/2022 02:25:59 PM]] Loading cache\model_cache\snapshot_Turkey_0.16027279.pth
+[[05/09/2022 02:25:59 PM]] Loading cache\model_cache\snapshot_Turkey_0.16172508.pth
+[[05/09/2022 02:25:59 PM]] Loading cache\model_cache\snapshot_Turkey_0.16413086.pth
+[[05/09/2022 02:25:59 PM]] Predicting test...
+[[05/09/2022 02:25:59 PM]] Loading cache\model_cache\snapshot_Turkey_0.16027279.pth
+[[05/09/2022 02:25:59 PM]] Loading cache\model_cache\snapshot_Turkey_0.16172508.pth
+[[05/09/2022 02:25:59 PM]] Loading cache\model_cache\snapshot_Turkey_0.16413086.pth
+[[05/09/2022 02:25:59 PM]] SEED: 42
+[[05/09/2022 02:25:59 PM]] # of paramters: 14,041
+[[05/09/2022 02:25:59 PM]] # of trainable paramters: 14,041
+[[05/09/2022 02:25:59 PM]] Optimizer Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    eps: 1e-08
+    initial_lr: 0.001
+    lr: 0.000125
+    weight_decay: 0
+)
+[[05/09/2022 02:25:59 PM]] Batches per epoch: 33
+[[05/09/2022 02:25:59 PM]] ====================Epoch 1====================
+[[05/09/2022 02:25:59 PM]] Step 16: train 5.563971 lr: 3.239e-04
+[[05/09/2022 02:26:00 PM]] Step 32: train 3.636858 lr: 5.360e-04
+[[05/09/2022 02:26:00 PM]] Snapshot loss 0.45175058
+[[05/09/2022 02:26:00 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.45175058.pth...
+[[05/09/2022 02:26:00 PM]] New low
+
+[[05/09/2022 02:26:00 PM]] ====================Epoch 2====================
+[[05/09/2022 02:26:00 PM]] Step 48: train 1.197578 lr: 7.481e-04
+[[05/09/2022 02:26:00 PM]] Step 64: train 0.502587 lr: 9.602e-04
+[[05/09/2022 02:26:00 PM]] Snapshot loss 0.28230669
+[[05/09/2022 02:26:00 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.28230669.pth...
+[[05/09/2022 02:26:00 PM]] New low
+
+[[05/09/2022 02:26:00 PM]] ====================Epoch 3====================
+[[05/09/2022 02:26:00 PM]] Step 80: train 0.405653 lr: 9.809e-04
+[[05/09/2022 02:26:00 PM]] Step 96: train 0.343782 lr: 9.573e-04
+[[05/09/2022 02:26:00 PM]] Snapshot loss 0.19526959
+[[05/09/2022 02:26:00 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.19526959.pth...
+[[05/09/2022 02:26:00 PM]] New low
+
+[[05/09/2022 02:26:00 PM]] ====================Epoch 4====================
+[[05/09/2022 02:26:00 PM]] Step 112: train 0.278366 lr: 9.337e-04
+[[05/09/2022 02:26:00 PM]] Step 128: train 0.250895 lr: 9.101e-04
+[[05/09/2022 02:26:00 PM]] Snapshot loss 0.15472729
+[[05/09/2022 02:26:00 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.15472729.pth...
+[[05/09/2022 02:26:00 PM]] New low
+
+[[05/09/2022 02:26:00 PM]] ====================Epoch 5====================
+[[05/09/2022 02:26:00 PM]] Step 144: train 0.272496 lr: 8.866e-04
+[[05/09/2022 02:26:01 PM]] Step 160: train 0.285075 lr: 8.630e-04
+[[05/09/2022 02:26:01 PM]] Snapshot loss 0.17105313
+[[05/09/2022 02:26:01 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.17105313.pth...
+[[05/09/2022 02:26:01 PM]] ====================Epoch 6====================
+[[05/09/2022 02:26:01 PM]] Step 176: train 0.233981 lr: 8.394e-04
+[[05/09/2022 02:26:01 PM]] Step 192: train 0.201765 lr: 8.159e-04
+[[05/09/2022 02:26:01 PM]] Snapshot loss 0.17583958
+[[05/09/2022 02:26:01 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.17583958.pth...
+[[05/09/2022 02:26:01 PM]] ====================Epoch 7====================
+[[05/09/2022 02:26:01 PM]] Step 208: train 0.208290 lr: 7.923e-04
+[[05/09/2022 02:26:01 PM]] Step 224: train 0.195356 lr: 7.687e-04
+[[05/09/2022 02:26:01 PM]] Snapshot loss 0.15018420
+[[05/09/2022 02:26:01 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.15018420.pth...
+[[05/09/2022 02:26:01 PM]] New low
+
+[[05/09/2022 02:26:01 PM]] ====================Epoch 8====================
+[[05/09/2022 02:26:01 PM]] Step 240: train 0.192651 lr: 7.452e-04
+[[05/09/2022 02:26:01 PM]] Step 256: train 0.168704 lr: 7.216e-04
+[[05/09/2022 02:26:01 PM]] Snapshot loss 0.19854281
+[[05/09/2022 02:26:01 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.19854281.pth...
+[[05/09/2022 02:26:01 PM]] ====================Epoch 9====================
+[[05/09/2022 02:26:01 PM]] Step 272: train 0.199130 lr: 6.980e-04
+[[05/09/2022 02:26:01 PM]] Step 288: train 0.211624 lr: 6.745e-04
+[[05/09/2022 02:26:01 PM]] Snapshot loss 0.27685653
+[[05/09/2022 02:26:01 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.27685653.pth...
+[[05/09/2022 02:26:01 PM]] ====================Epoch 10====================
+[[05/09/2022 02:26:02 PM]] Step 304: train 0.186284 lr: 6.509e-04
+[[05/09/2022 02:26:02 PM]] Step 320: train 0.179891 lr: 6.273e-04
+[[05/09/2022 02:26:02 PM]] Snapshot loss 0.16133534
+[[05/09/2022 02:26:02 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.16133534.pth...
+[[05/09/2022 02:26:02 PM]] ====================Epoch 11====================
+[[05/09/2022 02:26:02 PM]] Step 336: train 0.152297 lr: 6.037e-04
+[[05/09/2022 02:26:02 PM]] Step 352: train 0.142355 lr: 5.802e-04
+[[05/09/2022 02:26:02 PM]] Snapshot loss 0.26301717
+[[05/09/2022 02:26:02 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.26301717.pth...
+[[05/09/2022 02:26:02 PM]] ====================Epoch 12====================
+[[05/09/2022 02:26:02 PM]] Step 368: train 0.128685 lr: 5.566e-04
+[[05/09/2022 02:26:02 PM]] Step 384: train 0.154263 lr: 5.330e-04
+[[05/09/2022 02:26:02 PM]] Snapshot loss 0.15691712
+[[05/09/2022 02:26:02 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.15691712.pth...
+[[05/09/2022 02:26:02 PM]] ====================Epoch 13====================
+[[05/09/2022 02:26:02 PM]] Step 400: train 0.184977 lr: 5.095e-04
+[[05/09/2022 02:26:02 PM]] Step 416: train 0.147507 lr: 4.859e-04
+[[05/09/2022 02:26:02 PM]] Snapshot loss 0.27986671
+[[05/09/2022 02:26:02 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.27986671.pth...
+[[05/09/2022 02:26:02 PM]] ====================Epoch 14====================
+[[05/09/2022 02:26:02 PM]] Step 432: train 0.128385 lr: 4.623e-04
+[[05/09/2022 02:26:02 PM]] Step 448: train 0.136921 lr: 4.388e-04
+[[05/09/2022 02:26:03 PM]] Snapshot loss 0.15469581
+[[05/09/2022 02:26:03 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.15469581.pth...
+[[05/09/2022 02:26:03 PM]] ====================Epoch 15====================
+[[05/09/2022 02:26:03 PM]] Step 464: train 0.124838 lr: 4.152e-04
+[[05/09/2022 02:26:03 PM]] Step 480: train 0.132427 lr: 3.916e-04
+[[05/09/2022 02:26:03 PM]] Snapshot loss 0.16937271
+[[05/09/2022 02:26:03 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.16937271.pth...
+[[05/09/2022 02:26:03 PM]] ====================Epoch 16====================
+[[05/09/2022 02:26:03 PM]] Step 496: train 0.116746 lr: 3.681e-04
+[[05/09/2022 02:26:03 PM]] Step 512: train 0.117282 lr: 3.445e-04
+[[05/09/2022 02:26:03 PM]] Step 528: train 0.132769 lr: 3.209e-04
+[[05/09/2022 02:26:03 PM]] Snapshot loss 0.16607648
+[[05/09/2022 02:26:03 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.16607648.pth...
+[[05/09/2022 02:26:03 PM]] ====================Epoch 17====================
+[[05/09/2022 02:26:03 PM]] Step 544: train 0.131957 lr: 2.973e-04
+[[05/09/2022 02:26:03 PM]] Step 560: train 0.120188 lr: 2.738e-04
+[[05/09/2022 02:26:03 PM]] Snapshot loss 0.15392488
+[[05/09/2022 02:26:03 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.15392488.pth...
+[[05/09/2022 02:26:03 PM]] ====================Epoch 18====================
+[[05/09/2022 02:26:03 PM]] Step 576: train 0.121574 lr: 2.502e-04
+[[05/09/2022 02:26:03 PM]] Step 592: train 0.120814 lr: 2.266e-04
+[[05/09/2022 02:26:03 PM]] Snapshot loss 0.17625202
+[[05/09/2022 02:26:03 PM]] Saving checkpoint cache\model_cache\snapshot_Turkey_0.17625202.pth...
+[[05/09/2022 02:26:03 PM]] Predicting test...
+[[05/09/2022 02:26:03 PM]] Loading cache\model_cache\snapshot_Turkey_0.45175058.pth
+[[05/09/2022 02:26:04 PM]] Loading cache\model_cache\snapshot_Turkey_0.28230669.pth
+[[05/09/2022 02:26:04 PM]] Loading cache\model_cache\snapshot_Turkey_0.19526959.pth

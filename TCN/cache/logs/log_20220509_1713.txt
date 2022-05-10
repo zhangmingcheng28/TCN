@@ -1,0 +1,14 @@
+[[05/09/2022 05:13:07 PM]] SEED: 42
+[[05/09/2022 05:13:07 PM]] # of paramters: 14,041
+[[05/09/2022 05:13:07 PM]] # of trainable paramters: 14,041
+[[05/09/2022 05:13:07 PM]] Optimizer Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    eps: 1e-08
+    initial_lr: 0.001
+    lr: 0.000125
+    weight_decay: 0
+)
+[[05/09/2022 05:13:07 PM]] Batches per epoch: 33
+[[05/09/2022 05:13:07 PM]] ====================Epoch 1====================
