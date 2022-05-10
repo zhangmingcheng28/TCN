@@ -62,7 +62,7 @@ model = TCN(input_channels, n_classes, channel_sizes, kernel_size=kernel_size, d
 if args.cuda:
     model.cuda()
     permute = permute.cuda()
-
+#model.to(torch.device('cpu'))
 lr = args.lr
 optimizer = getattr(optim, args.optim)(model.parameters(), lr=lr)
 

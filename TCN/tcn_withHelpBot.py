@@ -182,7 +182,7 @@ def main():
         val_loader = get_dataloader(
             x_train[valid_index], y_train[valid_index],
             batch_size=128, shuffle=False
-        )  # load data into training loader, as a batch size of 128
+        )  # load data into validation loader, as a batch size of 128
 
         model = TCNModel(num_channels=[20] * 2, kernel_size=3, dropout=0.25)
         model.to(DEVICE)
