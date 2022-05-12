@@ -57,6 +57,7 @@ train_loader, test_loader = data_generator(root, batch_size)
 permute = torch.Tensor(np.random.permutation(784).astype(np.float64)).long()
 channel_sizes = [args.nhid] * args.levels
 kernel_size = args.ksize
+
 model = TCN(input_channels, n_classes, channel_sizes, kernel_size=kernel_size, dropout=args.dropout)
 
 if args.cuda:

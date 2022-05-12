@@ -56,7 +56,8 @@ model = TCN(input_size, input_size, n_channels, kernel_size, dropout=args.dropou
 
 
 if args.cuda:
-    model.cuda()
+    #model.cuda()
+    model.to('cpu')
 
 criterion = nn.CrossEntropyLoss()
 lr = args.lr
@@ -93,8 +94,8 @@ def train(ep):
     for idx in train_idx_list:
         data_line = X_train[idx]
         x, y = Variable(data_line[:-1]), Variable(data_line[1:])
-        if args.cuda:
-            x, y = x.cuda(), y.cuda()
+        # if args.cuda:
+        #     x, y = x.cuda(), y.cuda()
 
         optimizer.zero_grad()
         output = model(x.unsqueeze(0)).squeeze(0)

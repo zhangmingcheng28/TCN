@@ -17,6 +17,7 @@ import pandas as pd
 import numpy as np
 import torch
 from torch.utils.data import DataLoader, TensorDataset
+import torch.nn.functional as F
 DEVICE = "cpu"
 
 
@@ -25,7 +26,8 @@ class TemporalBlock(nn.Module):
         super(TemporalBlock, self).__init__()
         self.conv1 = weight_norm(nn.Conv2d(n_inputs, n_outputs, (1, kernel_size),
                                            stride=stride, padding=0,
-                                           dilation=dilation))  # here padding=0 because we are going to implement padding in next line
+                                           dilation=dilation))
+        # here padding=0 because we are going to implement padding in next line
         self.pad = torch.nn.ZeroPad2d((padding, 0, 0, 0))
         self.relu = nn.ReLU()
         self.dropout = nn.Dropout(dropout)
@@ -66,6 +68,19 @@ class TemporalConvNet(nn.Module):
 
     def forward(self, x):
         return self.network(x)
+
+
+class TCN(nn.Module):
+    def __init__(self, in_channel, out_channel, num_channels, kernel_size, dropouts):  # num_channels is the dialation at each residual block
+        super(TCN, self).__init__()
+        self.tcn = TemporalConvNet(in_channel, num_channels, kernel_size, dropouts)
+        self.linear = nn.Linear(num_channels[-1], out_channel)
+
+    def forward(self, inputs):
+        """Inputs have to have dimension (N, C_in, L_in)"""
+        y1 = self.tcn(inputs)  # input should have dimension (N, C, L)
+        o = self.linear(y1[:, :, -1])
+        return o
 
 
 def get_dataset(x, y):
@@ -138,11 +153,12 @@ def df_to_xyArray(inputDF, columnPos, max_colVal, min_colVla):  # convert the df
     #       19        |      'power'
     # ======================
     x_input = featuresArray[:, :-1].astype(float)  # set the input of the flight, excluding the last column of power
-
     supposed_y_output = featuresArray[:, -1].astype(float)
     for columnIdex in range(0, featuresArray.shape[1]):
         columnIdx_name_ref[columnIdex] = features.columns[columnIdex]
     x, y = multivariate_data(x_input, supposed_y_output, single_step=True)
+    # Transpose the x, so that features is the row, time-sequence/step is column
+    x = np.transpose(x, (0, 2, 1))  # 0th dimension stay at the 1st place, the 1st and 2nd dimension chance place.
     return x, y, columnIdx_name_ref
 
 def load_xyDict_to_dataloaderDict(inputDict):
@@ -195,9 +211,10 @@ dataset_test_validate = np.concatenate([df_dropped_altiZero_fixAlti.loc[df_dropp
 data_min = dataset_test_validate[:, ColumnToNormalise].min(axis=0)
 data_max = dataset_test_validate[:, ColumnToNormalise].max(axis=0)
 
-#build a dict to store the data for each flight for both training and validation DF
+#build a dict to store the data for each flight for both training and validation DF, and normalize it.
 train_data_dict = {}
 valid_data_dict = {}
+test_data_dict = {}
 for eachFlight in test_validate_list:
     if eachFlight['flight'].iloc[0] in train_flightIdx:
         x, y, idx_name_ref = df_to_xyArray(eachFlight, ColumnToNormalise, data_max, data_min)  # x:(dim1,dim2,dim3) total of 1320 data points, 20 data points form a timeseries, 19 features in total. y: (dim1), input of 1320 set of 20 data points, leads to a power value.
@@ -205,22 +222,96 @@ for eachFlight in test_validate_list:
     elif eachFlight['flight'].iloc[0] in validate_flightIdx:
         x, y, idx_name_ref = df_to_xyArray(eachFlight, ColumnToNormalise, data_max, data_min)
         valid_data_dict[eachFlight['flight'].iloc[0]] = (x, y)
+    elif eachFlight['flight'].iloc[0] in test_flightIdx:
+        x, y, idx_name_ref = df_to_xyArray(eachFlight, ColumnToNormalise, data_max, data_min)
+        test_data_dict[eachFlight['flight'].iloc[0]] = (x, y)
 # load the data dictionary to dataloader and store as dictionary for every flight
 dataLoader_training_Dict = load_xyDict_to_dataloaderDict(train_data_dict)
 dataLoader_validation_Dict = load_xyDict_to_dataloaderDict(valid_data_dict)
+dataLoader_test_Dict = load_xyDict_to_dataloaderDict(test_data_dict)
 
 # ======================
 #     Configure and load TCN model
 # ======================
+overallInutChannel = 19  # total of 19 features
+overallOutputChannel = 1
+residualBlock_num = 6  # so a total of 6 blocks, this also controls the dilatation size for each residual block
+
+# number of filters meaning number of kernel used is convolution layer in parallel?
+num_filters = 64  # according to paper on "CVaR-based Flight Energy Risk Assessment for Multirotor UAVs using a Deep Energy Model"
+outputChannelAfter_eachResidualBlock = [num_filters] * residualBlock_num
+dropOut = 0.0  # according to model paper
+torch.manual_seed(42)
+model = TCN(overallInutChannel, overallOutputChannel, outputChannelAfter_eachResidualBlock, kernel_size=2, dropouts=dropOut)
+
+# ======================
+#     Training loop
+# ======================
+total_epochs = 50
+criterion = nn.MSELoss()
+optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+
+
+def train(ep):
+    model.train()
+    train_loss = 0
+    np.random.seed(42)
+    np.random.shuffle(train_flightIdx)  # now, the train_flightIdx is a numpy array that has been shuffled randomly
+    for idx, flight in enumerate(train_flightIdx):  # train based on flight index
+        # train(loop through) the portion of data in the data_loader that matches the flight index
+        for batch_idx, (data_in, target) in enumerate(dataLoader_training_Dict[flight]):
+            # clear the gradients
+            optimizer.zero_grad()
+            # compute the model output
+            pred_out = model(data_in)  # data_in, is (N,C,L) format,N is batch size, C is number of features, L is the length of sequence (time-steps)
+            # calculate loss
+            loss = criterion(pred_out.squeeze(), target)
+            # weight assignment
+            loss.backward()
+            # update model weights
+            optimizer.step()
+            train_loss += loss.item()
+            # print(loss.item())
+    return train_loss
+
+
+def evaluate(X_data, name):
+    model.eval()
+    total_loss = 0.0
+    count = 0
+    Idx_list = None
+    np.random.seed(42)
+    if name == "Validation":
+        Idx_list = validate_flightIdx
+        np.random.shuffle(Idx_list)
+    elif name == "Test":
+        Idx_list = test_flightIdx
+        np.random.shuffle(Idx_list)
+
+    with torch.no_grad():
+        loss_list = 0
+        for idx, flight in enumerate(Idx_list):
+            for batch_idx, (data_in, target) in enumerate(X_data[flight]):
+                # compute the model output
+                pred_out = model(data_in)  # data_in, is (N,C,L) format,N is batch size, C is number of features, L is the length of sequence (time-steps)
+                # calculate loss
+                loss = criterion(pred_out.squeeze(), target)
+                loss_list += loss.item()
+        return loss_list
 
 
 
+for epIdx in range(1, total_epochs+1):
+    train_loss = train(epIdx)
+    print(epIdx, train_loss)
+    vloss = evaluate(dataLoader_validation_Dict, name='Validation')
+    # tloss = evaluate(dataLoader_test_Dict, name='Test')
 
-train_flightData = df_dropped_altiZero_fixAlti.loc[df_dropped_altiZero_fixAlti['flight'].isin(train_flightIdx)]
-validate_flightData = df_dropped_altiZero_fixAlti.loc[df_dropped_altiZero_fixAlti['flight'].isin(validate_flightIdx)]
 
-test_flightData = df_dropped_altiZero_fixAlti.loc[df_dropped_altiZero_fixAlti['flight'].isin(test_flightIdx)]
-print(train_flightData.head())
+# train_flightData = df_dropped_altiZero_fixAlti.loc[df_dropped_altiZero_fixAlti['flight'].isin(train_flightIdx)]
+# validate_flightData = df_dropped_altiZero_fixAlti.loc[df_dropped_altiZero_fixAlti['flight'].isin(validate_flightIdx)]
+# test_flightData = df_dropped_altiZero_fixAlti.loc[df_dropped_altiZero_fixAlti['flight'].isin(test_flightIdx)]
+# print(train_flightData.head())
 
 
 
