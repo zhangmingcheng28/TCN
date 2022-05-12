@@ -6,3 +6,4 @@ wikitext-103/
 *.pyc
 __pycache__/
 flights.csv
+*.csv
