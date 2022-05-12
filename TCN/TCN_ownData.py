@@ -193,6 +193,7 @@ for flightidx in range(1, df_dropped_altiZero_fixAlti['flight'].max()+1):  # nee
         assert df_to_check['altitude'].str.contains(df_to_check['altitude'].iloc[0]).all(), "There are different altitude for the same flight"  # ensure every flight only has a single fixed altitude
         flightDataPtCount.append(len(df_dropped_altiZero_fixAlti.loc[df_dropped_altiZero_fixAlti['flight'] == flightidx]))
         fixedAltiFlightNum.append(flightidx)  # this is used for time-series data for individual flights
+
 #print(df_dropped_altiZero_fixAlti.head())
 # ======================
 #     Spilt flight data (fixed_altitude) into 60:20:20, training, validation, test
@@ -205,7 +206,8 @@ test_validate_flight = np.hstack((train_flightIdx, validate_flightIdx))
 # grab only "flight", "wind_speed", "wind_angle", "battery_voltage", "battery_current", "orientation_x", "orientation_y", "orientation_z", "orientation_w","velocity_x","velocity_y","velocity_z","angular_x","angular_y","angular_z", "linear_acceleration_x", "linear_acceleration_y", "linear_acceleration_z","payload","altitude","power" for each flight number
 test_validate_list = [df_dropped_altiZero_fixAlti.loc[df_dropped_altiZero_fixAlti['flight']==singleFlight, ['flight', 'wind_speed', 'wind_angle', 'battery_voltage', 'battery_current', 'orientation_x', 'orientation_y', 'orientation_z', 'orientation_w', 'velocity_x', 'velocity_y', 'velocity_z', 'angular_x', 'angular_y', 'angular_z', 'linear_acceleration_x', 'linear_acceleration_y', 'linear_acceleration_z', 'payload', 'altitude', 'power']] for singleFlight in test_validate_flight]
 # all element in the list are DF, with same column names, just pick one to identify the index of the column that need to be normalised
-ColumnToNormalise = column_index(test_validate_list[0], ['wind_speed', 'wind_angle', 'battery_voltage', 'battery_current'])
+ColumnToNormalise = column_index(test_validate_list[0], ['mass', 'wind_angle', 'battery_voltage', 'battery_current'])
+
 
 dataset_test_validate = np.concatenate([df_dropped_altiZero_fixAlti.loc[df_dropped_altiZero_fixAlti['flight']==singleFlight, ['wind_speed', 'wind_angle', 'battery_voltage', 'battery_current', 'orientation_x', 'orientation_y', 'orientation_z', 'orientation_w', 'velocity_x', 'velocity_y', 'velocity_z', 'angular_x', 'angular_y', 'angular_z', 'linear_acceleration_x', 'linear_acceleration_y', 'linear_acceleration_z', 'payload', 'altitude', 'power']] for singleFlight in test_validate_flight])
 data_min = dataset_test_validate[:, ColumnToNormalise].min(axis=0)

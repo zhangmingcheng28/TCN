@@ -76,8 +76,108 @@ class TCN(nn.Module):
         return o
 
 
+def get_dataset(x, y):
+    return TensorDataset(torch.from_numpy(x).float(), torch.from_numpy(y).float())
+
+
+def get_dataloader(x: np.array, y: np.array, batch_size: int, shuffle: bool = True, num_workers: int = 0):
+    dataset = get_dataset(x, y)  # convert the numpy to torch standard TensorDataset
+    return DataLoader(dataset, batch_size=batch_size, shuffle=shuffle, num_workers=num_workers)  # load and prepare the DataSet
+
+
+def column_index(df, query_cols):
+    cols = df.columns.values
+    sidx = np.argsort(cols)
+    return sidx[np.searchsorted(cols,query_cols,sorter=sidx)]
+
+
+def multivariate_data(dataset, target, start_index=0, end_index=None, history_size=20, target_size=-1, step=1, single_step=False):
+    data = []
+    labels = []
+    start_index = start_index + history_size
+    if end_index is None:
+        end_index = len(dataset) - target_size
+
+    for i in range(start_index, end_index):
+        indices = range(i - history_size, i, step)
+        data.append(dataset[indices])
+
+        if single_step:
+            labels.append(target[i + target_size])
+        else:
+            labels.append(target[i:i + target_size])
+
+    return np.array(data), np.array(labels)
+
+
+def df_to_xyArray(inputDF, columnPos, max_colVal, min_colVla):  # convert the df to time series input array (X) and corrosponding output array (Y)
+    columnIdx_name_ref = {}
+    # only choose part of the dataframe
+    features = inputDF[
+        ['mass', 'roll', 'pitch', 'yaw', 'roll_rate', 'pitch_rate', 'yaw_rate', 'v_n', 'v_e', 'v_d', 'accel_n', 'accel_e', 'accel_d', 'wind_n', 'wind_e', 'energy']]  # only exclude "flight"
+    featuresArray = features.values  # extract the values in DF, in terms of 2D array, same size with DF
+    # normalise
+    featuresArray[:, columnPos] = (featuresArray[:, columnPos] - min_colVla) / (max_colVal - min_colVla)  # normalise every flight's required column's data
+    x_input = featuresArray[:, :-1].astype(float)  # set the input of the flight, excluding the last column of power
+    supposed_y_output = featuresArray[:, -1].astype(float)
+    for columnIdex in range(0, featuresArray.shape[1]):
+        columnIdx_name_ref[columnIdex] = features.columns[columnIdex]
+    x, y = multivariate_data(x_input, supposed_y_output, single_step=True)
+    # Transpose the x, so that features is the row, time-sequence/step is column
+    x = np.transpose(x, (0, 2, 1))  # 0th dimension stay at the 1st place, the 1st and 2nd dimension chance place.
+    return x, y, columnIdx_name_ref
+
+
+def load_xyDict_to_dataloaderDict(inputDict):
+    dataLoaderDict = {}
+    batchSize = 32
+    for flightIdx_key, xyArray in inputDict.items():
+        dataLoaderDict[flightIdx_key] = get_dataloader(xyArray[0], xyArray[1], batchSize)
+    return dataLoaderDict
+
 # ======================
 #     Data preparing
 # ======================
 # load data
-df_raw = pd.read_csv(r"F:\githubClone\TCN\flights.csv")
+df_prepared = pd.read_csv(r"F:\githubClone\TCN\m100_for_model.csv")
+flightDataPtCount = []
+fixedAltiFlightNum = []
+for flightidx in range(1, df_prepared['flight'].max()+1):  # need to +1, because range(start, stop), will end at 'stop-1' in for loop.
+    fixedAltiFlightNum.append(flightidx)
+
+# ======================
+#     Spilt flight data (fixed_altitude) into 80:20, training, test
+# ======================
+np.random.seed(42)  # ensure spilt the same every time it runs during debugging
+train_flightIdx, test_flightIdx = np.split(np.array(fixedAltiFlightNum), [int(.8 * len(np.array(fixedAltiFlightNum)))])
+# grab all rows belongs to the same flight.
+train_list = [df_prepared.loc[df_prepared['flight'] == singleFlight, :] for singleFlight in train_flightIdx]
+# all element in the list are DF, with same column names, just pick one to identify the index of the column that need to be normalised
+ColumnToNormalise = column_index(train_list[0], ['mass', 'roll', 'pitch', 'yaw', 'roll_rate', 'pitch_rate', 'yaw_rate', 'v_n', 'v_e', 'v_d', 'accel_n', 'accel_e', 'accel_d', 'wind_n', 'wind_e'])
+
+dataset_train = np.concatenate([df_prepared.loc[df_prepared['flight'] == singleFlight, ['mass', 'roll', 'pitch', 'yaw', 'roll_rate', 'pitch_rate', 'yaw_rate', 'v_n', 'v_e', 'v_d', 'accel_n', 'accel_e', 'accel_d', 'wind_n', 'wind_e', 'energy']] for singleFlight in train_flightIdx])
+data_min = dataset_train[:, ColumnToNormalise].min(axis=0)
+data_max = dataset_train[:, ColumnToNormalise].max(axis=0)
+
+#build a dict to store the data for each flight for both training and validation DF, and normalize it.
+train_data_dict = {}
+test_data_dict = {}
+for eachFlight in train_list:
+    if eachFlight.empty:
+        continue
+    if eachFlight['flight'].iloc[0] in train_flightIdx:
+        x, y, idx_name_ref = df_to_xyArray(eachFlight, ColumnToNormalise, data_max, data_min)  # x:(dim1,dim2,dim3) total of 1320 data points, 20 data points form a timeseries, 19 features in total. y: (dim1), input of 1320 set of 20 data points, leads to a power value.
+        train_data_dict[eachFlight['flight'].iloc[0]] = (x, y)
+    elif eachFlight['flight'].iloc[0] in test_flightIdx:
+        x, y, idx_name_ref = df_to_xyArray(eachFlight, ColumnToNormalise, data_max, data_min)
+        test_data_dict[eachFlight['flight'].iloc[0]] = (x, y)
+# load the data dictionary to dataloader and store as dictionary for every flight
+dataLoader_training_Dict = load_xyDict_to_dataloaderDict(train_data_dict)
+dataLoader_test_Dict = load_xyDict_to_dataloaderDict(test_data_dict)
+
+# ======================
+#     Configure and load TCN model
+# ======================
+overallInutChannel = 15  # total of 15 features
+overallOutputChannel = 1
+residualBlock_num = 6  # so a total of 6 blocks, this also controls the dilatation size for each residual block
