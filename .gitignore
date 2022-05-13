@@ -7,3 +7,5 @@ wikitext-103/
 __pycache__/
 flights.csv
 *.csv
+*.pickle
+TCN/result_from_ownDataV2/epoch_10_model

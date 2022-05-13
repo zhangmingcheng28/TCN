@@ -17,6 +17,8 @@ import pandas as pd
 import numpy as np
 import torch
 from torch.utils.data import DataLoader, TensorDataset
+import pickle
+import time
 DEVICE = "cpu"
 
 
@@ -140,18 +142,17 @@ def load_xyDict_to_dataloaderDict(inputDict):
 # ======================
 # load data
 df_prepared = pd.read_csv(r"F:\githubClone\TCN\m100_for_model.csv")
-flightDataPtCount = []
-fixedAltiFlightNum = []
-for flightidx in range(1, df_prepared['flight'].max()+1):  # need to +1, because range(start, stop), will end at 'stop-1' in for loop.
-    fixedAltiFlightNum.append(flightidx)
+totalFlightNum = []
+for flightidx in df_prepared.flight.unique():  # Note: the flight number is NOT continous, e.g. there is no flight no.9
+    totalFlightNum.append(flightidx)
 
 # ======================
 #     Spilt flight data (fixed_altitude) into 80:20, training, test
 # ======================
 np.random.seed(42)  # ensure spilt the same every time it runs during debugging
-train_flightIdx, test_flightIdx = np.split(np.array(fixedAltiFlightNum), [int(.8 * len(np.array(fixedAltiFlightNum)))])
+train_flightIdx, test_flightIdx = np.split(np.array(totalFlightNum), [int(.8 * len(np.array(totalFlightNum)))])
 # grab all rows belongs to the same flight.
-train_list = [df_prepared.loc[df_prepared['flight'] == singleFlight, :] for singleFlight in train_flightIdx]
+train_list = [df_prepared.loc[df_prepared['flight'] == singleFlight, :] for singleFlight in totalFlightNum]
 # all element in the list are DF, with same column names, just pick one to identify the index of the column that need to be normalised
 ColumnToNormalise = column_index(train_list[0], ['mass', 'roll', 'pitch', 'yaw', 'roll_rate', 'pitch_rate', 'yaw_rate', 'v_n', 'v_e', 'v_d', 'accel_n', 'accel_e', 'accel_d', 'wind_n', 'wind_e'])
 
@@ -181,3 +182,82 @@ dataLoader_test_Dict = load_xyDict_to_dataloaderDict(test_data_dict)
 overallInutChannel = 15  # total of 15 features
 overallOutputChannel = 1
 residualBlock_num = 6  # so a total of 6 blocks, this also controls the dilatation size for each residual block
+
+# number of filters meaning number of kernel used is convolution layer in parallel?
+num_filters = 64  # according to paper on "CVaR-based Flight Energy Risk Assessment for Multirotor UAVs using a Deep Energy Model"
+outputChannelAfter_eachResidualBlock = [num_filters] * residualBlock_num
+dropOut = 0.0  # according to model paper
+torch.manual_seed(42)
+model = TCN(overallInutChannel, overallOutputChannel, outputChannelAfter_eachResidualBlock, kernel_size=2, dropouts=dropOut)
+
+# ======================
+#     Training loop
+# ======================
+total_epochs = 50
+criterion = nn.MSELoss()
+optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+
+
+def train(ep):
+    model.train()
+    train_loss = 0
+    np.random.seed(42)
+    np.random.shuffle(train_flightIdx)  # now, the train_flightIdx is a numpy array that has been shuffled randomly
+    for idx, flight in enumerate(train_flightIdx):  # train based on flight index
+        # train(loop through) the portion of data in the data_loader that matches the flight index
+        for batch_idx, (data_in, target) in enumerate(dataLoader_training_Dict[flight]):
+            # clear the gradients
+            optimizer.zero_grad()
+            # compute the model output
+            pred_out = model(data_in)  # data_in, is (N,C,L) format,N is batch size, C is number of features, L is the length of sequence (time-steps)
+            # calculate loss
+            loss = criterion(pred_out.squeeze(), target)
+            # weight assignment
+            loss.backward()
+            # update model weights
+            optimizer.step()
+            train_loss += loss.item()
+    return train_loss
+
+
+def evaluate(X_data, name):
+    model.eval()
+    total_loss = 0.0
+    Idx_list = None
+    np.random.seed(42)
+    if name == "Validation":
+        #Idx_list = validate_flightIdx
+        Idx_list = None
+        np.random.shuffle(Idx_list)
+    elif name == "Test":
+        Idx_list = test_flightIdx
+        np.random.shuffle(Idx_list)
+
+    # record in single evaluation epoch, the "data_in", "target" and "pred_out" for each  flight
+    evaRecord_singleFlight = {}
+    with torch.no_grad():
+        for idx, flight in enumerate(Idx_list):
+            for batch_idx, (data_in, target) in enumerate(X_data[flight]):
+                # compute the model output
+                pred_out = model(data_in)  # data_in, is (N,C,L) format,N is batch size, C is number of features, L is the length of sequence (time-steps)
+                # calculate loss
+                loss = criterion(pred_out.squeeze(), target)
+                total_loss += loss.item()
+                # record the (flight, batch_idx) together with data_in, target, and pred_out
+                evaRecord_singleFlight[(flight, batch_idx)] = [data_in, target, pred_out]
+        return total_loss, evaRecord_singleFlight
+
+
+training_test_result_with_model = {}
+for epIdx in range(1, total_epochs+1):
+    begin = time.time()  #
+    train_loss = train(epIdx)
+    print(epIdx, train_loss)
+    tloss, evaRecord_singleFlight = evaluate(dataLoader_test_Dict, name='Test')
+    training_test_result_with_model[epIdx] = [tloss, evaRecord_singleFlight]
+    torch.save(model.state_dict(), r'F:\githubClone\TCN\TCN\result_from_ownDataV2\epoch_' + str(epIdx)+'_model')
+    with open(r'F:\githubClone\TCN\TCN\result_from_ownDataV2\epoch_' + str(epIdx) + '_loss_and_evaluationResult.pickle', 'wb') as handle:
+        pickle.dump(training_test_result_with_model, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    epoch_time_used = time.time()-begin
+    print("epoch {} used {} second to finish".format(epIdx, epoch_time_used))
+print("end of all epochs!")
